@@ -5,42 +5,56 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GameEngine implements Runnable {
+    MyObject player = new MyObject();
+    /* PROVISORY ADDING OF PLAYER OBJECT*******************************/
+
     GraphicsContext gc;
     private Set<KeyCode> keysPressed = new HashSet<>();
-    // todo list of pressed keys
+    private Set<Sprite> activeSprites = new HashSet<>();
+    int renderingCounter=0;
 
     public GameEngine(GraphicsContext gc) {
         this.gc = gc;
     }
 
     void SpawnSprite(Sprite s) {
-        //todo
+        activeSprites.add(s);
     }
     void DeleteSprite(Sprite s) {
-        //todo
-    }
+        activeSprites.remove(s);
+        }
     @Override
     public void run () {
         while (true) {
+            renderingCounter++;
             gc.clearRect(0,0,gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-            // Check if the up arrow key is pressed
+
 
 
             // energy, lives .setValue todo
-            // detect collisions todo
+            // detect collisions
+            HashMap<Sprite, java.lang.Boolean> collisionsMap = new HashMap<Sprite, Boolean>();
+            for (Sprite s: activeSprites){
+                if(s instanceof MyObject){
+                    boolean collided =((MyObject)s).Collide(player, (MyObject) s);
+                    collisionsMap.put(s,collided);
+                }
+            }
+
             // call move todo
-            // call render todo
+            // call render
+            for(Sprite s:activeSprites){
+                s.render(gc,renderingCounter);
+            }
 
-
+            //**************************
             System.out.println(keysPressed);
+            //***************************
 
             try {
                 Thread.sleep(1000/60);
@@ -52,6 +66,7 @@ public class GameEngine implements Runnable {
         }
     }
 
+    //KeyListener methods
     public void addKeyToSet (KeyCode key){
         keysPressed.add (key);
     }
