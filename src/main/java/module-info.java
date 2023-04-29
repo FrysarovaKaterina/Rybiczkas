@@ -1,6 +1,7 @@
 module com.example.game {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens com.example.game to javafx.fxml;
