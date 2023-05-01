@@ -27,7 +27,10 @@ public class Sprite {
 
     public void render(GraphicsContext gc) {
         Image texture = textures.get((frames_counter / (60/animationFPS)) % textures.size());
-        gc.drawImage(texture, positionX-texture.getWidth()/2, positionY-texture.getHeight()/2);
+        if (flipped) {
+            gc.drawImage(texture, positionX+texture.getWidth()/2, positionY-texture.getHeight()/2, -texture.getWidth(), texture.getHeight());
+        } else
+            gc.drawImage(texture, positionX-texture.getWidth()/2, positionY-texture.getHeight()/2);
         frames_counter = frames_counter+1 % (textures.size() * (60/animationFPS)) + 1; //todo check fix
     }
 

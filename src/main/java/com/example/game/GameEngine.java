@@ -53,6 +53,8 @@ public class GameEngine implements Runnable {
     public boolean tryLoadLevel(String levelname) {
         // todo later
         spawnSprite(new Piranha(50,500));
+        spawnSprite(new Player(50,500,this));
+
         return true;
     }
 
@@ -62,6 +64,9 @@ public class GameEngine implements Runnable {
     }
     public void removeKeyFromSet (KeyCode keyrem){
         keysPressed.remove(keyrem);
+    }
+    public boolean isKeyPressed(KeyCode kc) {
+        return keysPressed.contains(kc);
     }
 
     private void handleCollisions() {

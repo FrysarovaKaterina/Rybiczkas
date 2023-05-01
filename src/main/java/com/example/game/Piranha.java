@@ -29,8 +29,10 @@ public class Piranha extends Alive {
 
     @Override
     public void update() {
-        positionX += speed;
+        positionX += facing == Side.RIGHT ? speed : -speed;
         if (positionX >= 1920)
-            positionX = 0;
+            facing = Side.LEFT;
+        else if (positionX <= 0)
+            facing = Side.RIGHT;
     }
 }
