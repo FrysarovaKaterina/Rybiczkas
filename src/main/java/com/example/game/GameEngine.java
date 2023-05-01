@@ -2,58 +2,43 @@ package com.example.game;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 
-import java.awt.event.KeyListener;
 import java.util.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
+import static java.lang.Math.sqrt;
 
 public class GameEngine implements Runnable {
-    MyObject player = new MyObject();
-    /* PROVISORY ADDING OF PLAYER OBJECT*******************************/
-
     GraphicsContext gc;
     private Set<KeyCode> keysPressed = new HashSet<>();
     private Set<Sprite> activeSprites = new HashSet<>();
-    int renderingCounter=0;
 
     public GameEngine(GraphicsContext gc) {
         this.gc = gc;
     }
 
-    void SpawnSprite(Sprite s) {
+    void spawnSprite(Sprite s) {
         activeSprites.add(s);
     }
-    void DeleteSprite(Sprite s) {
+    void deleteSprite(Sprite s) {
         activeSprites.remove(s);
-        }
+    }
     @Override
     public void run () {
         while (true) {
-            renderingCounter++;
             gc.clearRect(0,0,gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
-
-
             // energy, lives .setValue todo
-            // detect collisions
-            HashMap<Sprite, java.lang.Boolean> collisionsMap = new HashMap<Sprite, Boolean>();
-            for (Sprite s: activeSprites){
-                if(s instanceof MyObject){
-                    boolean collided =((MyObject)s).Collide(player, (MyObject) s);
-                    collisionsMap.put(s,collided);
-                }
-            }
+
+            handleCollisions();
 
             // call move todo
             // call render
-            for(Sprite s:activeSprites){
-                s.render(gc,renderingCounter);
+            for(Sprite s:activeSprites) {
+                s.render(gc);
             }
 
             //**************************
-            System.out.println(keysPressed);
+            //System.out.println(keysPressed);
             //***************************
 
             try {
@@ -65,6 +50,11 @@ public class GameEngine implements Runnable {
             }
         }
     }
+    public boolean tryLoadLevel(String levelname) {
+        // todo later
+        spawnSprite(new Piranha(50,500));
+        return true;
+    }
 
     //KeyListener methods
     public void addKeyToSet (KeyCode key){
@@ -74,5 +64,21 @@ public class GameEngine implements Runnable {
         keysPressed.remove(keyrem);
     }
 
-
+    private void handleCollisions() {
+        //HashMap<Sprite, java.lang.Boolean> collisionsMap = new HashMap<Sprite, Boolean>();
+        // todo optimize
+        for (Sprite s: activeSprites) {
+            if(s instanceof ColliderObject) {
+                for (Sprite s2 : activeSprites) {
+                    if (s2 instanceof ColliderObject) {
+                        double distance = sqrt((s2.positionX-s.positionX)^2+(s2.positionY-s.positionY)^2);
+                        if (distance <= ((ColliderObject) s).radius + ((ColliderObject) s2).radius) {
+                            ((ColliderObject) s).collide((ColliderObject) s2);
+                            ((ColliderObject) s2).collide((ColliderObject) s);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

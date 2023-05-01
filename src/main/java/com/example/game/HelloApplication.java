@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -25,8 +26,8 @@ public class HelloApplication extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         GameEngine engine = new GameEngine(gc);
-        // todo hook up keylistener to gameengine wtf how
 
+        engine.tryLoadLevel("todo"); //todo level selection menu
 
         new Thread(engine).start();
 
