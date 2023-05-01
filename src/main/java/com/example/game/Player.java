@@ -10,7 +10,7 @@ public class Player extends Alive {
     private GameEngine engine;
     private int speed = 7;
     public Player(int positionX, int positionY, GameEngine engine) {
-        super(new ArrayList<Image>(), 2, positionX, positionY, 10, 3, 5);
+        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 3, 5);
         textures.add(new Image("piranha2.png"));
         textures.add(new Image("piranha1.png"));
         this.engine = engine;
@@ -18,6 +18,12 @@ public class Player extends Alive {
 
     @Override
     public void update() {
+        if (energy <= 0) {
+            lives--;
+            energy = 5;
+            if (lives <= 0)
+                engine.endGame(true);
+        }
         if (engine.isKeyPressed(KeyCode.RIGHT)){
             positionX +=speed;
             facing = Side.RIGHT;
