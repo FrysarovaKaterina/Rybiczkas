@@ -78,6 +78,7 @@ public class GameEngine implements Runnable {
         spawnSprite(new Piranha(50,500));
         Player plr = new Player(450,500,this);
         spawnSprite(new Shark(1200, 850, plr));
+        spawnSprite(new Squid(500, 500));
         spawnSprite(new JellyFish(1000, 800, plr));
         spawnSprite(plr);
 

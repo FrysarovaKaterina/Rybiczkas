@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Alive {
+    private int bubbleCounter =5;
     private GameEngine engine;
     boolean bubbleAvailable = true;
     private int speed = 7;
@@ -24,7 +25,7 @@ public class Player extends Alive {
     @Override
     public void update() {
         counter++;
-        if (counter==60){
+        if (counter==40){
             bubbleAvailable=true;
             counter=0;
         }
@@ -52,9 +53,10 @@ public class Player extends Alive {
         if (engine.isKeyPressed(KeyCode.DOWN)){
             positionY +=speed;
         }
-        if (engine.isKeyPressed(KeyCode.SPACE) && bubbleAvailable){
+        if (engine.isKeyPressed(KeyCode.SPACE) && bubbleCounter!=0 && bubbleAvailable){
             engine.spawnSprite(new Bubble(positionX, positionY, facing));
             bubbleAvailable=false;
+            bubbleCounter--;
         }
         if(positionX < 0)
             positionX = 0;
@@ -64,5 +66,8 @@ public class Player extends Alive {
             positionY = 1080;
         else if (positionY<0)
             positionY = 0;
+        if(positionY<=30){
+            bubbleCounter=5;
+        }
     }
 }

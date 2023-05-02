@@ -15,7 +15,7 @@ public class Bubble extends Alive {
     }
 
     private int damage = 1;
-    private int speed = 12;
+    private int speed = 14;
 
     @Override
     public void collisionEnter(ColliderObject other) {

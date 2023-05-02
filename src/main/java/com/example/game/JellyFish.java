@@ -31,9 +31,16 @@ public class JellyFish extends Alive {
     @Override
     public void update() {
         counter++;
-        if (counter==400){
-            electricShock =true;
-            counter=0;}
+        if (counter==170){
+            electricShock =true;}
+        else if(counter==800){
+            electricShock=false;
+            counter=0;
+            textures.remove(jf3);
+            textures.remove(jf4);
+            textures.add(jf1);
+            textures.add(jf2);}
+
         if (electricShock && !(textures.contains(jf3))) {
             textures.add(jf3);
             textures.add(jf4);
