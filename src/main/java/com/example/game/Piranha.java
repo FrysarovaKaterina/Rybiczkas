@@ -7,31 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Piranha extends Alive {
+    private final PlayerDamager damager = new PlayerDamager(60);
     public Piranha(int positionX, int positionY) {
-        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 1, 1);
+        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 0, 1);
         textures.add(new Image("piranha1.png"));
         textures.add(new Image("piranha2.png"));
     }
 
     private int damage = 1;
-    private int speed = 3;
-    private int framesSinceLastHurt = 0;
+    private int speed = 15;
 
     @Override
     public void collisionEnter(ColliderObject other) {
         if (other instanceof Player)
-            framesSinceLastHurt = 99999;
+            damager.max();
     }
 
     @Override
     public void update() {
-        framesSinceLastHurt = (framesSinceLastHurt + 1) % Integer.MAX_VALUE;
-        for (ColliderObject other:collisions) {
-            if (other instanceof Player && framesSinceLastHurt >= 60) {
-                ((Player) other).energy--;
-                framesSinceLastHurt = 0;
-            }
-        }
+        damager.update(collisions, damage);
         positionX += facing == Side.RIGHT ? speed : -speed;
         if (positionX >= 1920)
             facing = Side.LEFT;
