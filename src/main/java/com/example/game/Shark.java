@@ -10,8 +10,8 @@ import java.util.List;
 public class Shark extends Alive {
     private Sprite target;
     private PlayerDamager damager = new PlayerDamager(60);
-    public Shark(int positionX, int positionY, Sprite trg) {
-        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 0, 3);
+    public Shark(int positionX, int positionY, Sprite trg, EngineConfig engineConfig) {
+        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 0, 3,engineConfig);
         textures.add(new Image("shark1.png"));
         textures.add(new Image("shark2.png"));
         this.target=trg;

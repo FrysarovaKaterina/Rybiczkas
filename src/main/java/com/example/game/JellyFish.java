@@ -13,8 +13,8 @@ public class JellyFish extends Alive {
     Image jf4 = new Image("jellyfish4.png");
 
     //private PlayerDamager damager = new PlayerDamager(60);
-    public JellyFish(int positionX, int positionY, Sprite trg) {
-        super(new ArrayList<Image>(), 2, positionX, positionY, 60, 0, 4);
+    public JellyFish(int positionX, int positionY, Sprite trg, EngineConfig engineConfig) {
+        super(new ArrayList<Image>(), 2, positionX, positionY, 60, 0, 4,engineConfig);
         textures.add(jf1);
         textures.add(jf2);
         this.target=trg;

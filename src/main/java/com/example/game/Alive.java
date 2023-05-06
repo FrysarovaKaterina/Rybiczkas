@@ -10,8 +10,8 @@ public abstract class Alive extends ColliderObject {
     public int energy;
     enum Side { LEFT, RIGHT };
     public Side facing = Side.RIGHT;
-    public Alive(List<Image> textures, int animationFPS, int positionX, int positionY, int radius, int lives, int energy) {
-        super(textures, animationFPS, positionX, positionY, radius);
+    public Alive(List<Image> textures, int animationFPS, int positionX, int positionY, int radius, int lives, int energy, EngineConfig engineConfig) {
+        super(textures, animationFPS, positionX, positionY, radius, engineConfig);
         this.lives = lives;
         this.energy = energy;
     }

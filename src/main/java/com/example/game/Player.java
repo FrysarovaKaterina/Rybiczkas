@@ -13,7 +13,7 @@ public class Player extends Alive {
     private int speed = 7;
     private int counter =0;
     public Player(int positionX, int positionY, GameEngine engine) {
-        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 3, 5);
+        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 3, 5, engine.getEngineConfig());
         textures.add(new Image("playa1.png"));
         textures.add(new Image("playa2.png"));
         textures.add(new Image("playa3.png"));
@@ -54,19 +54,19 @@ public class Player extends Alive {
             positionY +=speed;
         }
         if (engine.isKeyPressed(KeyCode.SPACE) && bubbleCounter!=0 && bubbleAvailable){
-            engine.spawnSprite(new Bubble(positionX, positionY, facing));
+            engine.spawnSprite(new Bubble(positionX, positionY, facing, engineConfig));
             bubbleAvailable=false;
             bubbleCounter--;
         }
         if(positionX < 0)
             positionX = 0;
-        else if(positionX > 1920)
-            positionX = 1920;
-        if(positionY > 1080)
-            positionY = 1080;
+        else if(positionX > engineConfig.Width)
+            positionX = engineConfig.Width;
+        if(positionY > engineConfig.Height)
+            positionY = engineConfig.Height;
         else if (positionY<0)
             positionY = 0;
-        if(positionY<=30){
+        if(positionY<=30 && engine.isKeyPressed(KeyCode.Q)){
             bubbleCounter=5;
         }
     }

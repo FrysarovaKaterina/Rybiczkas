@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Bubble extends Alive {
     boolean right = false;
-    public Bubble(int positionX, int positionY, Side facing) {
-        super(new ArrayList<Image>(), 1, positionX, positionY, 30, 0, 1);
+    public Bubble(int positionX, int positionY, Side facing, EngineConfig engineConfig) {
+        super(new ArrayList<Image>(), 1, positionX, positionY, 30, 0, 1, engineConfig);
         textures.add(new Image("bubble.png"));
         if (facing==Side.RIGHT){
             right=true;

@@ -17,8 +17,8 @@ public class Squid extends Alive {
 
     int counter =0;
     private final PlayerDamager damager = new PlayerDamager(60);
-    public Squid(int positionX, int positionY) {
-        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 0, 6);
+    public Squid(int positionX, int positionY, EngineConfig engineConfig) {
+        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 0, 6, engineConfig);
         facing = Side.RIGHT;
         textures.add(squid5);
         textures.add(squid6);
@@ -37,29 +37,33 @@ public class Squid extends Alive {
     @Override
     public void update() {
         counter++;
-        counter = counter% 1000;
-        if (counter <300){
+        counter = counter%1000;
+        if (counter == 0){
             damage=1;
             radius=100;
+            textures.clear();
             textures.add(squid1);
             textures.add(squid2);
-            textures.remove(squid5);
-            textures.remove(squid6);}
-        else if (counter > 300 && counter<=600){
+            //textures.remove(squid5);
+            //textures.remove(squid6);
+        }
+        else if (counter == 300){
             damage=2;
             radius=200;
+            textures.clear();
             textures.add(squid3);
             textures.add(squid4);
-            textures.remove(squid1);
-            textures.remove(squid2);
-        } else if (counter>600) {
-                damage=3;
-                radius=300;
-                textures.add(squid5);
-                textures.add(squid6);
-                textures.remove(squid3);
-                textures.remove(squid4);
-            }
+            //textures.remove(squid1);
+            //textures.remove(squid2);
+        } else if (counter==600) {
+            damage=3;
+            radius=300;
+            textures.clear();
+            textures.add(squid5);
+            textures.add(squid6);
+            //textures.remove(squid3);
+            //textures.remove(squid4);
+        }
 
 
 

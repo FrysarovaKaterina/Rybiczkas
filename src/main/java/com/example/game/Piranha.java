@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Piranha extends Alive {
     private final PlayerDamager damager = new PlayerDamager(60);
-    public Piranha(int positionX, int positionY) {
-        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 0, 1);
+    public Piranha(int positionX, int positionY, EngineConfig engineConfig) {
+        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 0, 1, engineConfig);
         textures.add(new Image("piranha1.png"));
         textures.add(new Image("piranha2.png"));
     }

@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import java.util.*;
 
 public class GameEngine implements Runnable {
+    private EngineConfig config;
     private boolean stopGame = false;
     public void stopMainloop() { stopGame = true; }
     private GraphicsContext gc;
@@ -15,8 +16,8 @@ public class GameEngine implements Runnable {
     private Set<Sprite> toSpawn = new HashSet<Sprite>();
     private Set<Sprite> toDelete = new HashSet<Sprite>();
 
-    public GameEngine(GraphicsContext gc) {
-        this.gc = gc;
+    public GameEngine(GraphicsContext gc, EngineConfig config) {
+        this.gc = gc; this.config = config;
     }
 
     void spawnSprite(Sprite s) {
@@ -58,7 +59,7 @@ public class GameEngine implements Runnable {
             //***************************
 
             try {
-                Thread.sleep(1000/60);
+                Thread.sleep(1000/config.FPS);
                 //System.out.println(keysPressed);
 
             } catch (InterruptedException e) {
@@ -75,15 +76,15 @@ public class GameEngine implements Runnable {
     public boolean tryLoadLevel(String levelname) {
         // todo later
 
-        spawnSprite(new Piranha(50,500));
+        spawnSprite(new Piranha(50,500, config));
         Player plr = new Player(450,500,this);
-        spawnSprite(new Shark(1200, 850, plr));
-        spawnSprite(new Squid(500, 500));
-        spawnSprite(new JellyFish(1000, 800, plr));
+        spawnSprite(new Shark(1200, 850, plr, config));
+        spawnSprite(new Squid(500, 500, config));
+        spawnSprite(new JellyFish(1000, 800, plr, config));
         spawnSprite(plr);
 
-        spawnSprite(new Lives(plr, 1750, 10));
-        spawnSprite(new Energy(plr, 1750, 75));
+        spawnSprite(new Lives(plr, 1750, 10, config));
+        spawnSprite(new Energy(plr, 1750, 75, config));
         return true;
     }
 
@@ -121,5 +122,9 @@ public class GameEngine implements Runnable {
                 }
             }
         }
+    }
+
+    public EngineConfig getEngineConfig() {
+        return config;
     }
 }

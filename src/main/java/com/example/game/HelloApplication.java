@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
         Canvas canvas = new Canvas(1920,1080);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        GameEngine engine = new GameEngine(gc);
+        GameEngine engine = new GameEngine(gc, new EngineConfig(1920,1080, 60));
 
         engine.tryLoadLevel("todo"); //todo level selection menu
 

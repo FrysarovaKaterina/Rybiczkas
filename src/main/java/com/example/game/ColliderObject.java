@@ -11,8 +11,8 @@ public abstract class ColliderObject extends Sprite {
     public int radius;
     public Set<ColliderObject> collisions = new HashSet<>();
 
-    public ColliderObject(List<Image> textures, int animationFPS, int positionX, int positionY, int radius) {
-        super(textures, animationFPS, positionX, positionY);
+    public ColliderObject(List<Image> textures, int animationFPS, int positionX, int positionY, int radius, EngineConfig engineConfig) {
+        super(textures, animationFPS, positionX, positionY, engineConfig);
         this.radius = radius;
     }
     public void collisionEnter(ColliderObject other) { /* do nothing by default */ }

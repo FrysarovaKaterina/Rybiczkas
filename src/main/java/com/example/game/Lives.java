@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Lives extends Sprite {
     private Alive alive;
-    public Lives(Alive alive, int posx, int posy) {
-        super(new ArrayList<Image>(), 1, posx, posy);
+    public Lives(Alive alive, int posx, int posy, EngineConfig engineConfig) {
+        super(new ArrayList<Image>(), 1, posx, posy,engineConfig);
         textures.add(new Image("heart.png"));
         this.alive = alive;
     }

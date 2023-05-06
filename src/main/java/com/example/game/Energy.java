@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Energy extends Sprite{
     private Alive alive;
-    public Energy(Alive alive, int posx, int posy) {
-        super(new ArrayList<Image>(), 1, posx, posy);
+    public Energy(Alive alive, int posx, int posy, EngineConfig engineConfig) {
+        super(new ArrayList<Image>(), 1, posx, posy, engineConfig);
         textures.add(new Image("energy.png"));
         this.alive = alive;
     }
