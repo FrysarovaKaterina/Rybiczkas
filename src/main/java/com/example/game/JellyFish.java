@@ -55,7 +55,7 @@ public class JellyFish extends Alive {
         //damager.update(collisions, 3);
 
         //damage
-        if ((target instanceof Player && target.positionX<= positionX+radius && target.positionX >= positionX-radius) && electricShock){
+        if ((target instanceof Player && ((Player) target).shieldActive !=true && target.positionX<= positionX+radius && target.positionX >= positionX-radius) && electricShock){
             ((Player) target).energy-=damage;
             electricShock =false;
             textures.remove(jf3);
@@ -64,7 +64,7 @@ public class JellyFish extends Alive {
             textures.add(jf2);
 
 
-        }else if(target instanceof Player && target.positionY<= positionY+radius && target.positionY >= positionY-radius&& electricShock) {
+        }else if(target instanceof Player && ((Player) target).shieldActive !=true && target.positionY<= positionY+radius && target.positionY >= positionY-radius&& electricShock) {
             ((Player) target).energy -= damage;
             electricShock = false;
             textures.remove(jf3);

@@ -2,12 +2,14 @@ package com.example.game;
 
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
 import java.util.*;
 
 public class GameEngine implements Runnable {
     private EngineConfig config;
+    ArrayList<Item> inventoor = new ArrayList<Item>(5);
     private boolean stopGame = false;
     public void stopMainloop() { stopGame = true; }
     private GraphicsContext gc;
@@ -38,7 +40,7 @@ public class GameEngine implements Runnable {
             // call move todo
             // call render
             for (Sprite s:activeSprites){
-                if (s instanceof Alive && ((Alive) s).energy<=0 && ((Alive) s).lives <= 0) {
+                if (s instanceof Alive && ((Alive) s).energy<=0 && ((Alive) s).lives <= 0 || (s instanceof KeyObj && ((KeyObj) s).equipped == true)) {
                     deleteSprite(s);
                     continue;
                 }
@@ -70,6 +72,8 @@ public class GameEngine implements Runnable {
     public void endGame(boolean failed) {
         //todo
         System.out.println(failed ? "You hilariously failed you dumbo" : "huh u win ok");
+        System.out.println(inventoor);
+
         stopMainloop();
         Platform.exit();
     }
@@ -85,6 +89,9 @@ public class GameEngine implements Runnable {
 
         spawnSprite(new Lives(plr, 1750, 10, config));
         spawnSprite(new Energy(plr, 1750, 75, config));
+        spawnSprite(new Chest(1700,900,config));
+        spawnSprite(new KeyObj(200, 200, config));
+        //spawnSprite(new Collectable(new ArrayList<>(), 1, 100, 200, 25, config));
         return true;
     }
 
@@ -104,9 +111,18 @@ public class GameEngine implements Runnable {
         //HashMap<Sprite, java.lang.Boolean> collisionsMap = new HashMap<Sprite, Boolean>();
         // todo optimize
         for (Sprite s: activeSprites) {
+
             if(s instanceof ColliderObject) {
                 for (Sprite s2 : activeSprites) {
-                    if (s == s2) continue;
+                    if (s2 instanceof Chest && ((Chest) s2).opened == false){
+                        double distanceSquared2 = square(s2.positionX-s.positionX)+square(s2.positionY-s.positionY);
+                        if (distanceSquared2 <= square(((ColliderObject) s).radius + ((ColliderObject) s2).radius)) {
+                                ((ColliderObject) s).collisionEnter((ColliderObject) s2);
+                            }
+                    }
+                    if (s == s2 || (s instanceof Chest && ((Chest) s).opened) || (s2 instanceof Player && ((Player) s2).shieldActive)){
+                        continue;
+                    }
                     if (s2 instanceof ColliderObject) {
                         double distanceSquared = square(s2.positionX-s.positionX)+square(s2.positionY-s.positionY);
                         if (distanceSquared <= square(((ColliderObject) s).radius + ((ColliderObject) s2).radius)) {
@@ -121,7 +137,9 @@ public class GameEngine implements Runnable {
                     }
                 }
             }
+
         }
+
     }
 
     public EngineConfig getEngineConfig() {

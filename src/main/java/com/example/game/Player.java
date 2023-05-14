@@ -8,24 +8,45 @@ import java.util.List;
 
 public class Player extends Alive {
     private int bubbleCounter =5;
+    private int shieldCounter = 1000;
+    boolean shieldActive = false;
+    ArrayList<Item> inventory = new ArrayList<Item>();
+    ArrayList<String> provisoryInventory = new ArrayList<String>();
     private GameEngine engine;
     boolean bubbleAvailable = true;
     private int speed = 7;
     private int counter =0;
-    public Player(int positionX, int positionY, GameEngine engine) {
-        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 3, 5, engine.getEngineConfig());
-        textures.add(new Image("playa1.png"));
-        textures.add(new Image("playa2.png"));
-        textures.add(new Image("playa3.png"));
-        textures.add(new Image("playa4.png"));
+    Image pl1 = new Image("playa1.png");
+    Image pl2 = new Image("playa2.png");
+    Image pl3 = new Image("playa3.png");
+    Image pl4 = new Image("playa4.png");
 
+    Image shield = new Image("shield.png");
+    public Player(int positionX, int positionY, GameEngine engine) {
+        super(new ArrayList<Image>(), 2, positionX, positionY, 100, 1, 5, engine.getEngineConfig());
+        textures.add(pl1);
+        textures.add(pl2);
+        textures.add(pl3);
+        textures.add(pl4);
         this.engine = engine;
     }
 
     @Override
     public void update() {
+        if (shieldActive){
+            shieldCounter--;
+        }
+        if (shieldCounter<=0){
+            shieldActive=false;
+            textures.remove(shield);
+            textures.add(pl1);
+            textures.add(pl2);
+            textures.add(pl3);
+            textures.add(pl4);
+            shieldCounter=1000;
+        }
         counter++;
-        if (counter==40){
+        if (counter==20){
             bubbleAvailable=true;
             counter=0;
         }
@@ -40,6 +61,15 @@ public class Player extends Alive {
             positionX +=speed;
             facing = Side.RIGHT;
             animationDisabled = false;
+        }
+        if (engine.isKeyPressed(KeyCode.E)&& this.provisoryInventory.contains("S")){
+            provisoryInventory.remove("S");
+            textures.add(shield);
+            textures.remove(pl1);
+            textures.remove(pl2);
+            textures.remove(pl3);
+            textures.remove(pl4);
+            shieldActive=true;
         }
         if (engine.isKeyPressed(KeyCode.LEFT)){
             positionX -=speed;

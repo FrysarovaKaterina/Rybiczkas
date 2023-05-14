@@ -38,7 +38,7 @@ public class HelloApplication extends Application {
         });
         scene.setOnKeyReleased(keyEvent ->{
             KeyCode coderem = keyEvent.getCode();
-            engine.removeKeyFromSet(coderem);
+              engine.removeKeyFromSet(coderem);
         });
         stage.setTitle("gaming");
         stage.setScene(scene);
