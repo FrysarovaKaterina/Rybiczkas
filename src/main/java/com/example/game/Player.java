@@ -3,14 +3,79 @@ package com.example.game;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Player extends Alive {
     private int bubbleCounter =5;
     private int shieldCounter = 1000;
     boolean shieldActive = false;
     ArrayList<Item> inventory = new ArrayList<Item>();
+    Set<Sprite> enemiz = new Set<Sprite>() {
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return false;
+        }
+
+        @Override
+        public Iterator<Sprite> iterator() {
+            return null;
+        }
+
+        @Override
+        public Object[] toArray() {
+            return new Object[0];
+        }
+
+        @Override
+        public <T> T[] toArray(T[] ts) {
+            return null;
+        }
+
+        @Override
+        public boolean add(Sprite sprite) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(Collection<? extends Sprite> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean retainAll(Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public boolean removeAll(Collection<?> collection) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+    };
     ArrayList<String> provisoryInventory = new ArrayList<String>();
     private GameEngine engine;
     boolean bubbleAvailable = true;

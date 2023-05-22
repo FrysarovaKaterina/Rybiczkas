@@ -17,22 +17,22 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Canvas canvas = new Canvas(1920,1080);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        GameEngine engine = new GameEngine(gc, new EngineConfig(1920,1080, 60));
-
-        engine.tryLoadLevel("todo"); //todo level selection menu
-
+String[] pico = new File("levels").list();
+Arrays.sort(pico);
+        GameEngine engine = new GameEngine(gc, new EngineConfig(1920,1080, 60), pico);
         new Thread(engine).start();
 
-        Scene scene = new Scene(new Group(canvas),1920, 1080);
-        scene.setOnKeyPressed(keyEvent -> {
+        Scene scene = new Scene(new Group (canvas),1920, 1080);
+         scene.setOnKeyPressed(keyEvent -> {
             KeyCode code = keyEvent.getCode();
             engine.addKeyToSet(code);
         });
@@ -47,5 +47,5 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
+     }
 }

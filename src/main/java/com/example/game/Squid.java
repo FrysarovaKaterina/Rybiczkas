@@ -9,11 +9,11 @@ import java.util.List;
 public class Squid extends Alive {
 
     Image squid1 = new Image("squid1.png");
-    Image squid2 = new Image("squid1.png");
-    Image squid3 = new Image("squid2.png");
-    Image squid4 = new Image("squid2.png");
-    Image squid5 = new Image("squid3.png");
-    Image squid6 = new Image("squid3.png");
+    Image squid2 = new Image("squid2.png");
+    Image squid3 = new Image("squid3.png");
+    Image squid4 = new Image("squid4.png");
+    Image squid5 = new Image("squid5.png");
+    Image squid6 = new Image("squid6.png");
 
     int counter =0;
     private final PlayerDamager damager = new PlayerDamager(60);

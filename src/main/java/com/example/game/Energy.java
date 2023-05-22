@@ -9,7 +9,7 @@ public class Energy extends Sprite{
     private Alive alive;
     public Energy(Alive alive, int posx, int posy, EngineConfig engineConfig) {
         super(new ArrayList<Image>(), 1, posx, posy, engineConfig);
-        textures.add(new Image("energy.png"));
+        textures.add(new Image("energy1.png"));
         this.alive = alive;
     }
 

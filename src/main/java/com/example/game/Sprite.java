@@ -24,7 +24,19 @@ public class Sprite {
         this.textures = textures;
         this.animationFPS = animationFPS;
         this.positionX = positionX;
+        if (this.positionX > engineConfig.Width){
+            this.positionX = engineConfig.Width-500;
+        }
+        if (this.positionX < 0){
+            this.positionX = 500;
+        }
         this.positionY = positionY;
+        if (this.positionY > engineConfig.Height){
+            this.positionY = engineConfig.Height-500;
+        }
+        if (this.positionY<0){
+            this.positionY=500;
+        }
         this.engineConfig = engineConfig;
     }
 
