@@ -12,7 +12,6 @@ public class GameEngine implements Runnable {
     private String[] levels;
     private int currentLevel = 0;
     private EngineConfig config;
-    ArrayList<Item> inventoor = new ArrayList<Item>(5);
     private boolean loadNextLevel = false;
     private boolean stopGame = false;
 
@@ -66,7 +65,7 @@ public class GameEngine implements Runnable {
             // call move todo
             // call render
             for (Sprite s : activeSprites) {
-                if (s instanceof Alive && ((Alive) s).energy <= 0 && ((Alive) s).lives <= 0 || (s instanceof KeyObj && ((KeyObj) s).equipped == true)) {
+                if (s instanceof Alive && ((Alive) s).energy <= 0 && ((Alive) s).lives <= 0) {
                     deleteSprite(s);
                     continue;
                 }
@@ -99,7 +98,6 @@ public class GameEngine implements Runnable {
     public void endGame(boolean failed) {
         //todo
         System.out.println(failed ? "You hilariously failed you dumbo" : "huh u win ok");
-        System.out.println(inventoor);
 
         stopMainloop();
         Platform.exit();
@@ -110,7 +108,6 @@ public class GameEngine implements Runnable {
         activeSprites.clear();
         toDelete.clear();
         toSpawn.clear();
-        inventoor.clear();
         stopGame = false;
         loadNextLevel = false;
 
@@ -143,7 +140,7 @@ public class GameEngine implements Runnable {
                         spawnSprite(new Chest(Integer.parseInt(split[1]), Integer.parseInt(split[2]), config));
                         break;
                     case "key":
-                        spawnSprite(new KeyObj(Integer.parseInt(split[1]), Integer.parseInt(split[2]), config));
+                        spawnSprite(new Collectable(new Key(), Integer.parseInt(split[1]), Integer.parseInt(split[2]), this));
                         break;
                     case "door":
                         spawnSprite(new Door(Integer.parseInt(split[1]), Integer.parseInt(split[2]), this));

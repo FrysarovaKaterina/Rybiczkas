@@ -76,7 +76,6 @@ public class Player extends Alive {
 
         }
     };
-    ArrayList<String> provisoryInventory = new ArrayList<String>();
     private GameEngine engine;
     boolean bubbleAvailable = true;
     private int speed = 7;
@@ -127,8 +126,8 @@ public class Player extends Alive {
             facing = Side.RIGHT;
             animationDisabled = false;
         }
-        if (engine.isKeyPressed(KeyCode.E)&& this.provisoryInventory.contains("S")){
-            provisoryInventory.remove("S");
+        if (engine.isKeyPressed(KeyCode.E)&& hasItem("shield")){
+            removeItems("shield");
             textures.add(shield);
             textures.remove(pl1);
             textures.remove(pl2);
@@ -164,5 +163,19 @@ public class Player extends Alive {
         if(positionY<=30 && engine.isKeyPressed(KeyCode.Q)){
             bubbleCounter=5;
         }
+    }
+    public boolean hasItem(String name) {
+        for (Item i : inventory)
+            if (i.name == name)
+                return true;
+        return false;
+    }
+    public void removeItems(String name) {
+        var toDelete = new HashSet<Item>();
+        for (Item i : inventory)
+            if (i.name == name)
+                toDelete.add(i);
+        for (Item i : toDelete)
+            inventory.remove(i);
     }
 }

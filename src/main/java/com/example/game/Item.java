@@ -6,8 +6,13 @@ import java.util.List;
 
 public class Item {
     String name;
-    boolean used;
+    boolean used = false;
     List<Image> textures;
+
+    public Item(String name, List<Image> textures) {
+        this.name = name;
+        this.textures = textures;
+    }
 
     public void addToInventory ( Player plr){
 //        Item item = new Item();
@@ -15,7 +20,7 @@ public class Item {
 //        item.textures=colectbl.textures;
         plr.inventory.add(this);
     }
-    public void use(){
+    public void use(Alive target){
         /*do nothing by default*/
     }
 }

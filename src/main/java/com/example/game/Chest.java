@@ -15,13 +15,13 @@ public class Chest extends ColliderObject{
     boolean opened = false;
     @Override
     public void collisionEnter (ColliderObject other){
-        if (other instanceof Player && (((Player) other).inventory.contains(Key.class) || ((Player) other).provisoryInventory.contains("K"))){
+        if (other instanceof Player && (((Player) other).hasItem("key"))){
+            ((Player) other).removeItems("key");
             opened=true;
             textures.remove(chest1);
             textures.add(new Image("box_empty2.png"));
             Shield shield = new Shield();
             ((Player) other).inventory.add(shield);
-            ((Player) other).provisoryInventory.add("S");
         }
     }
 }

@@ -6,23 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Collectable extends ColliderObject {
-    boolean equipped = false;
-    public Collectable(List<Image> textures,int animationFPS, int positionX, int positionY, int radius, EngineConfig engineConfig) {
-        super(new ArrayList<Image>(), animationFPS = 1, positionX, positionY, radius = 25, engineConfig);
-        textures.add(new Image("key.png"));
+    Item item;
+    GameEngine engine;
+    public Collectable(Item item, int positionX, int positionY, GameEngine engine) {
+        super(item.textures, 1, positionX, positionY, 25, engine.getEngineConfig());
+        this.engine = engine;
+        this.item = item;
     }
 
     @Override
     public void collisionEnter(ColliderObject other) {
         if (other instanceof Player) {
-            //if (this.name.equals("Key")) {
-                Key key = new Key();
-                equipped = true;
-                ((Player) other).inventory.add(key);
-                ((Player) other).provisoryInventory.add("K");
-
-
-            // }
+            ((Player) other).inventory.add(item);
+            engine.deleteSprite(this);
         }
     }
 }
