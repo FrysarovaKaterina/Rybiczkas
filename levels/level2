@@ -1,4 +1,8 @@
-shark 300 850
-jellyfish 1070 1800
-door 100 100
-chest 50 50
+background background.png
+squid 1000 850
+shark 1100 1200
+piranha 250 250
+piranha 550 210
+door 1600 100
+key 200 200
+chest 100 750

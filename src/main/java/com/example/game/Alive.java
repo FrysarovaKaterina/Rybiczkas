@@ -8,14 +8,23 @@ import java.util.List;
 public abstract class Alive extends ColliderObject {
     public int lives;
     public int energy;
-    enum Side { LEFT, RIGHT };
+
+    public enum Side {LEFT, RIGHT}
+
+    ;
     public Side facing = Side.RIGHT;
-    public Alive(List<Image> textures, int animationFPS, int positionX, int positionY, int radius, int lives, int energy, EngineConfig engineConfig) {
-        super(textures, animationFPS, positionX, positionY, radius, engineConfig);
+
+    public Alive(int animationFPS, int positionX, int positionY, int radius, int lives, int energy, EngineConfig engineConfig) {
+        super(animationFPS, positionX, positionY, radius, engineConfig);
         this.lives = lives;
         this.energy = energy;
     }
+
     public abstract void update();
+
+    /**
+     * Calling render - updating state, flipping if needed and rendering.
+     */
     @Override
     public void render(GraphicsContext gc) {
         update();

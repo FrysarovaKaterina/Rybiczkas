@@ -14,13 +14,14 @@ public class Item {
         this.textures = textures;
     }
 
-    public void addToInventory ( Player plr){
-//        Item item = new Item();
-//        item.name = colectbl.name;
-//        item.textures=colectbl.textures;
+    /**
+     * Adding item to player's inventory.
+     */
+    public void addToInventory(Player plr) {
         plr.inventory.add(this);
     }
-    public void use(Alive target){
+
+    public void use(Alive target) {
         /*do nothing by default*/
     }
 }

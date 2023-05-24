@@ -1,6 +1,15 @@
-background underwater1.png
-piranha 500 500
+background background.png
+piranha 120 120
+piranha 350 350
+piranha 600 600
+piranha 900 900
+piranha 700 350
+piranha 1090 600
+piranha 1500 900
+player 100 600
+squid 900 500
+
 door 1080 5000
-key 1500 200
-chest 50 50
-chest 1500 1500
+
+
+

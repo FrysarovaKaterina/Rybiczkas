@@ -20,32 +20,38 @@ import java.awt.event.KeyAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.logging.LogManager;
 
+/**
+ * The main class of the whole game.
+ * Initializes the game canvas (fullscreen only) and starts the thread with game loop.
+ * Sets key event listener to provide user interaction via keyboard.
+ */
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Canvas canvas = new Canvas(1920,1080);
+        var params = getParameters();
+        if (params.getNamed().containsKey("log") && params.getNamed().get("log").equals("disable"))
+            LogManager.getLogManager().reset();
+        Canvas canvas = new Canvas(1920, 1080);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-String[] pico = new File("levels").list();
-Arrays.sort(pico);
-        GameEngine engine = new GameEngine(gc, new EngineConfig(1920,1080, 60), pico);
+        String[] levels = new File("levels").list();
+        Arrays.sort(levels);
+        GameEngine engine = new GameEngine(gc, new EngineConfig(1920, 1080, 60), levels);
         new Thread(engine).start();
 
-        Scene scene = new Scene(new Group (canvas),1920, 1080);
-         scene.setOnKeyPressed(keyEvent -> {
+        Scene scene = new Scene(new Group(canvas), 1920, 1080);
+        scene.setOnKeyPressed(keyEvent -> {
             KeyCode code = keyEvent.getCode();
             engine.addKeyToSet(code);
         });
-        scene.setOnKeyReleased(keyEvent ->{
-            KeyCode coderem = keyEvent.getCode();
-              engine.removeKeyFromSet(coderem);
+        scene.setOnKeyReleased(keyEvent -> {
+            KeyCode code = keyEvent.getCode();
+            engine.removeKeyFromSet(code);
         });
         stage.setTitle("gaming");
         stage.setScene(scene);
         stage.show();
     }
-
-    public static void main(String[] args) {
-        launch();
-     }
 }
