@@ -1,0 +1,1 @@
+![manual.svg](uploads/0e1e4b15e5c8ace4ce461fcce1b975d7/manual.svg)
