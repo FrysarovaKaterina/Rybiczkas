@@ -1,3 +1,3 @@
-* [Class diagram](Class-Diagram)
-* [Téma a popis](Téma-a-popis)
-* [Manuál](Manual)
+* [Class diagram](Class-Diagram.md)
+* [Téma a popis](Téma-a-popis.md)
+* [Manuál](Manual.md)
