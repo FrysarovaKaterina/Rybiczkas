@@ -1,7 +1,9 @@
+
 background background.png
-jellyfish 20 300
-key 500 890
-chest 50 170
-jellyfish 600 800
-squid 1600 450
-door 1650 650
+squid 1000 850
+shark 1100 1200
+piranha 250 250
+piranha 550 210
+door 1600 100
+key 200 200
+chest 100 750
